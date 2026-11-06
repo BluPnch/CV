@@ -1,38 +1,50 @@
-| Видео | Детектор | Режим | Кадров с рамкой | по эталону / потоком / предсказано | Размытых кадров с рамкой | Ошибка на размытых кадрах, средняя / макс., px | FPS |
-|---|---|---|---|---|---|---|---|
-| mona-lisa | SIFT | detect | 35.5 % | 198 / 0 / 0 | — | — | 22.6 |
-| mona-lisa | SIFT | hybrid | 100.0 % | 196 / 362 / 0 | — | — | 21.6 |
-| mona-lisa | SIFT | hybrid30 | 100.0 % | 197 / 361 / 0 | — | — | 21.8 |
-| mona-lisa | ORB | detect | 34.2 % | 191 / 0 / 0 | — | — | 41.0 |
-| mona-lisa | ORB | hybrid | 100.0 % | 190 / 368 / 0 | — | — | 35.2 |
-| mona-lisa | ORB | hybrid30 | 100.0 % | 192 / 366 / 0 | — | — | 35.0 |
-| mona-lisa | AKAZE | detect | 24.6 % | 137 / 0 / 0 | — | — | 44.6 |
-| mona-lisa | AKAZE | hybrid | 85.5 % | 138 / 324 / 15 | — | — | 36.3 |
-| mona-lisa | AKAZE | hybrid30 | 100.0 % | 137 / 421 / 0 | — | — | 35.7 |
-| mona-lisa | BRISK | detect | 29.7 % | 166 / 0 / 0 | — | — | 90.2 |
-| mona-lisa | BRISK | hybrid | 100.0 % | 171 / 387 / 0 | — | — | 72.2 |
-| mona-lisa | BRISK | hybrid30 | 100.0 % | 168 / 390 / 0 | — | — | 69.7 |
-| mona-lisa-blur | SIFT | detect | 32.1 % | 179 / 0 / 0 | 0 / 19 | — | 24.0 |
-| mona-lisa-blur | SIFT | hybrid | 99.3 % | 178 / 361 / 15 | 15 / 19 | 33.2 / 54.8 | 22.5 |
-| mona-lisa-blur | SIFT | hybrid30 | 100.0 % | 178 / 361 / 19 | 19 / 19 | 39.1 / 63.3 | 22.6 |
-| mona-lisa-blur | ORB | detect | 30.8 % | 172 / 0 / 0 | 0 / 19 | — | 41.5 |
-| mona-lisa-blur | ORB | hybrid | 99.3 % | 171 / 368 / 15 | 15 / 19 | 35.8 / 58.7 | 36.4 |
-| mona-lisa-blur | ORB | hybrid30 | 100.0 % | 168 / 371 / 19 | 19 / 19 | 41.6 / 65.8 | 34.8 |
-| mona-lisa-blur | AKAZE | detect | 21.7 % | 121 / 0 / 0 | 0 / 19 | — | 47.4 |
-| mona-lisa-blur | AKAZE | hybrid | 99.3 % | 120 / 419 / 15 | 15 / 19 | 34.1 / 56.2 | 40.9 |
-| mona-lisa-blur | AKAZE | hybrid30 | 100.0 % | 120 / 419 / 19 | 19 / 19 | 39.6 / 63.0 | 40.6 |
-| mona-lisa-blur | BRISK | detect | 27.1 % | 151 / 0 / 0 | 0 / 19 | — | 95.7 |
-| mona-lisa-blur | BRISK | hybrid | 99.3 % | 147 / 392 / 15 | 15 / 19 | 36.3 / 57.9 | 73.4 |
-| mona-lisa-blur | BRISK | hybrid30 | 100.0 % | 148 / 391 / 19 | 19 / 19 | 41.3 / 64.2 | 71.7 |
-| mona-lisa-blur-extra-credit | SIFT | detect | 30.8 % | 172 / 0 / 0 | 0 / 28 | — | 24.1 |
-| mona-lisa-blur-extra-credit | SIFT | hybrid | 99.3 % | 172 / 358 / 24 | 24 / 28 | 27.1 / 50.7 | 22.7 |
-| mona-lisa-blur-extra-credit | SIFT | hybrid30 | 100.0 % | 172 / 358 / 28 | 28 / 28 | 31.2 / 60.7 | 22.8 |
-| mona-lisa-blur-extra-credit | ORB | detect | 29.4 % | 164 / 0 / 0 | 0 / 28 | — | 42.6 |
-| mona-lisa-blur-extra-credit | ORB | hybrid | 99.3 % | 161 / 369 / 24 | 24 / 28 | 26.6 / 50.6 | 37.8 |
-| mona-lisa-blur-extra-credit | ORB | hybrid30 | 100.0 % | 160 / 370 / 28 | 28 / 28 | 34.0 / 59.2 | 38.4 |
-| mona-lisa-blur-extra-credit | AKAZE | detect | 21.9 % | 122 / 0 / 0 | 0 / 28 | — | 46.9 |
-| mona-lisa-blur-extra-credit | AKAZE | hybrid | 99.3 % | 121 / 409 / 24 | 17 / 28 | 30.7 / 50.8 | 37.5 |
-| mona-lisa-blur-extra-credit | AKAZE | hybrid30 | 100.0 % | 123 / 407 / 28 | 21 / 28 | 34.8 / 57.9 | 39.6 |
-| mona-lisa-blur-extra-credit | BRISK | detect | 25.4 % | 142 / 0 / 0 | 0 / 28 | — | 93.7 |
-| mona-lisa-blur-extra-credit | BRISK | hybrid | 99.3 % | 145 / 385 / 24 | 24 / 28 | 27.8 / 47.9 | 74.3 |
-| mona-lisa-blur-extra-credit | BRISK | hybrid30 | 100.0 % | 146 / 384 / 28 | 28 / 28 | 27.6 / 57.7 | 73.8 |
+| Видео | Детектор | Режим | Кадров с рамкой, % | Измерено, % | Прогноз, кадров | FPS | P95, мс | Макс. потеря, кадров |
+|---|---|---|---:|---:|---:|---:|---:|---:|
+| mona-lisa | SIFT | detect | 35.01 | 35.01 | 0 | 17.29 | 69.65 | 259 |
+| mona-lisa | SIFT | flow | 100.00 | 100.00 | 0 | 16.15 | 73.81 | 0 |
+| mona-lisa | SIFT | hybrid | 100.00 | 100.00 | 0 | 16.08 | 76.57 | 0 |
+| mona-lisa | ORB | detect | 34.11 | 34.11 | 0 | 37.03 | 37.91 | 279 |
+| mona-lisa | ORB | flow | 100.00 | 100.00 | 0 | 31.08 | 44.23 | 0 |
+| mona-lisa | ORB | hybrid | 100.00 | 100.00 | 0 | 32.10 | 41.86 | 0 |
+| mona-lisa | AKAZE | detect | 24.78 | 24.78 | 0 | 30.23 | 40.03 | 302 |
+| mona-lisa | AKAZE | flow | 100.00 | 100.00 | 0 | 28.22 | 44.80 | 0 |
+| mona-lisa | AKAZE | hybrid | 100.00 | 100.00 | 0 | 27.47 | 50.67 | 0 |
+| mona-lisa | BRISK | detect | 29.98 | 29.98 | 0 | 83.64 | 16.87 | 279 |
+| mona-lisa | BRISK | flow | 100.00 | 100.00 | 0 | 61.99 | 21.56 | 0 |
+| mona-lisa | BRISK | hybrid | 100.00 | 100.00 | 0 | 59.63 | 22.01 | 0 |
+| mona-lisa-blur | SIFT | detect | 31.60 | 31.60 | 0 | 17.49 | 70.63 | 259 |
+| mona-lisa-blur | SIFT | flow | 96.59 | 96.59 | 0 | 16.40 | 75.72 | 19 |
+| mona-lisa-blur | SIFT | hybrid | 99.28 | 96.59 | 15 | 16.56 | 74.42 | 4 |
+| mona-lisa-blur | ORB | detect | 30.70 | 30.70 | 0 | 38.87 | 36.21 | 279 |
+| mona-lisa-blur | ORB | flow | 96.59 | 96.59 | 0 | 33.25 | 43.49 | 19 |
+| mona-lisa-blur | ORB | hybrid | 99.28 | 96.59 | 15 | 34.16 | 40.56 | 4 |
+| mona-lisa-blur | AKAZE | detect | 21.36 | 21.36 | 0 | 33.12 | 37.07 | 302 |
+| mona-lisa-blur | AKAZE | flow | 96.59 | 96.59 | 0 | 28.44 | 45.52 | 19 |
+| mona-lisa-blur | AKAZE | hybrid | 99.28 | 96.59 | 15 | 28.35 | 50.54 | 4 |
+| mona-lisa-blur | BRISK | detect | 26.57 | 26.57 | 0 | 87.53 | 16.52 | 279 |
+| mona-lisa-blur | BRISK | flow | 96.59 | 96.59 | 0 | 62.70 | 21.68 | 19 |
+| mona-lisa-blur | BRISK | hybrid | 99.28 | 96.59 | 15 | 63.54 | 21.47 | 4 |
+| mona-lisa-blur-extra-credit | SIFT | detect | 30.70 | 30.70 | 0 | 18.08 | 67.05 | 252 |
+| mona-lisa-blur-extra-credit | SIFT | flow | 94.97 | 94.97 | 0 | 16.87 | 73.83 | 19 |
+| mona-lisa-blur-extra-credit | SIFT | hybrid | 99.28 | 94.97 | 24 | 16.78 | 72.52 | 4 |
+| mona-lisa-blur-extra-credit | ORB | detect | 28.90 | 28.90 | 0 | 40.70 | 35.71 | 288 |
+| mona-lisa-blur-extra-credit | ORB | flow | 94.97 | 94.97 | 0 | 34.71 | 40.72 | 19 |
+| mona-lisa-blur-extra-credit | ORB | hybrid | 99.28 | 94.97 | 24 | 33.82 | 41.50 | 4 |
+| mona-lisa-blur-extra-credit | AKAZE | detect | 21.54 | 21.54 | 0 | 34.63 | 36.23 | 304 |
+| mona-lisa-blur-extra-credit | AKAZE | flow | 94.97 | 94.97 | 0 | 30.90 | 40.39 | 19 |
+| mona-lisa-blur-extra-credit | AKAZE | hybrid | 99.28 | 94.97 | 24 | 30.31 | 41.81 | 4 |
+| mona-lisa-blur-extra-credit | BRISK | detect | 25.85 | 25.85 | 0 | 90.58 | 15.53 | 283 |
+| mona-lisa-blur-extra-credit | BRISK | flow | 94.97 | 94.97 | 0 | 65.01 | 22.18 | 19 |
+| mona-lisa-blur-extra-credit | BRISK | hybrid | 99.28 | 94.97 | 24 | 64.69 | 21.67 | 4 |
+| my_video | SIFT | detect | 97.20 | 97.20 | 0 | 3.58 | 357.54 | 3 |
+| my_video | SIFT | flow | 100.00 | 100.00 | 0 | 3.37 | 381.39 | 0 |
+| my_video | SIFT | hybrid | 100.00 | 100.00 | 0 | 3.44 | 355.58 | 0 |
+| my_video | ORB | detect | 80.42 | 80.42 | 0 | 14.42 | 76.99 | 54 |
+| my_video | ORB | flow | 100.00 | 100.00 | 0 | 11.89 | 96.28 | 0 |
+| my_video | ORB | hybrid | 100.00 | 100.00 | 0 | 12.10 | 92.08 | 0 |
+| my_video | AKAZE | detect | 77.27 | 77.27 | 0 | 4.10 | 366.53 | 59 |
+| my_video | AKAZE | flow | 100.00 | 100.00 | 0 | 4.54 | 262.64 | 0 |
+| my_video | AKAZE | hybrid | 100.00 | 100.00 | 0 | 4.47 | 286.36 | 0 |
+| my_video | BRISK | detect | 96.50 | 96.50 | 0 | 4.76 | 280.42 | 3 |
+| my_video | BRISK | flow | 100.00 | 100.00 | 0 | 4.39 | 297.22 | 0 |
+| my_video | BRISK | hybrid | 100.00 | 100.00 | 0 | 4.42 | 291.82 | 0 |

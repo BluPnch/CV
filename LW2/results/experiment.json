@@ -1,0 +1,58 @@
+{
+  "started_utc": "2026-11-03T23:03:39.768564+00:00",
+  "python": "3.12.6",
+  "opencv": "4.13.0",
+  "numpy": "2.4.4",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "processor": "Intel64 Family 6 Model 165 Stepping 2, GenuineIntel",
+  "threads": 1,
+  "rng_seed": 42,
+  "ratio": 0.75,
+  "min_inliers": 15,
+  "max_side": 960,
+  "modes": {
+    "detect": {
+      "use_flow": false,
+      "max_predict": 0
+    },
+    "flow": {
+      "use_flow": true,
+      "max_predict": 0
+    },
+    "hybrid": {
+      "use_flow": true,
+      "max_predict": 15
+    }
+  },
+  "detectors": [
+    "sift",
+    "orb",
+    "akaze",
+    "brisk"
+  ],
+  "save_video": [
+    "sift",
+    "orb",
+    "akaze",
+    "brisk"
+  ],
+  "excluded_template_frame": 0,
+  "videos": [
+    {
+      "name": "mona-lisa.avi",
+      "bytes": 3832604
+    },
+    {
+      "name": "mona-lisa-blur.avi",
+      "bytes": 3792184
+    },
+    {
+      "name": "mona-lisa-blur-extra-credit.avi",
+      "bytes": 3554134
+    },
+    {
+      "name": "my_video.mp4",
+      "bytes": 3718215
+    }
+  ]
+}

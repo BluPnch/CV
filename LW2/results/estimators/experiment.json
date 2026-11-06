@@ -1,0 +1,38 @@
+{
+  "status": "complete",
+  "started_utc": "2026-11-06T13:18:41.949338+00:00",
+  "python": "3.12.6",
+  "opencv": "4.13.0",
+  "numpy": "2.4.4",
+  "threads": 1,
+  "seed": "42 + frame",
+  "threshold": 4.0,
+  "max_iters": 5000,
+  "confidence": 0.999,
+  "ratio": 0.75,
+  "min_inliers": 15,
+  "min_inlier_ratio": 0.25,
+  "max_side": 960,
+  "estimation_repeats": 3,
+  "videos": [
+    "mona-lisa.avi",
+    "mona-lisa-blur.avi",
+    "mona-lisa-blur-extra-credit.avi",
+    "my_video.mp4"
+  ],
+  "detectors": [
+    "sift",
+    "orb",
+    "akaze",
+    "brisk"
+  ],
+  "methods": {
+    "ransac": 8,
+    "magsac": 38
+  },
+  "excluded_frame": 0,
+  "finished_utc": "2026-11-06T13:28:33.586225+00:00",
+  "elapsed_seconds": 591.6376846000057,
+  "combinations": 32,
+  "evaluated_pairs": 7828
+}

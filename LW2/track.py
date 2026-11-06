@@ -8,12 +8,13 @@ from pathlib import Path
 import cv2
 
 from tracker import DETECTORS, KeypointTracker, draw_hud, draw_result
+from experiment_config import validate_video
 
 
 def parse_args():
     p = argparse.ArgumentParser(description="Трекинг плоского объекта по ключевым точкам")
     p.add_argument("video", help="входное видео; первый кадр - крупное изображение объекта")
-    p.add_argument("-o", "--output", help="выходное видео (по умолчанию results/<имя>_<детектор>.mp4)")
+    p.add_argument("-o", "--output", help="выходное видео (по умолчанию results/manual/<имя>_<детектор>.mp4)")
     p.add_argument("--detector", default="sift", choices=DETECTORS)
     p.add_argument("--label", default="Object", help="подпись у рамки")
     p.add_argument("--roi", help="область объекта на первом кадре: x,y,w,h (по умолчанию весь кадр)")
@@ -33,6 +34,10 @@ def parse_args():
 
 def main():
     a = parse_args()
+    try:
+        validate_video(a.video)
+    except (ValueError, FileNotFoundError) as exc:
+        raise SystemExit(str(exc)) from exc
     cap = cv2.VideoCapture(a.video)
     if not cap.isOpened():
         raise SystemExit(f"Не удалось открыть {a.video}")
@@ -52,16 +57,20 @@ def main():
         roi = tuple(int(v) for v in a.roi.split(","))
 
     tracker = KeypointTracker(a.detector, ratio=a.ratio, min_inliers=a.min_inliers,
-                              max_side=a.max_side, use_flow=not a.no_flow, max_predict=a.max_predict)
+                              max_side=a.max_side, use_flow=not a.no_flow,
+                              max_predict=0 if a.no_flow else a.max_predict)
     n_tpl = tracker.init(first, roi)
     print(f"{a.video}: {first.shape[1]}x{first.shape[0]}, {n_total} кадров, {fps:.1f} fps; "
           f"эталон: {n_tpl} ключевых точек ({a.detector})")
 
     out_path = Path(a.output) if a.output else \
-        Path(__file__).parent / "results" / f"{Path(a.video).stem}_{a.detector}.mp4"
+        Path(__file__).parent / "results" / "manual" / f"{Path(a.video).stem}_{a.detector}.mp4"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     writer = cv2.VideoWriter(str(out_path), cv2.VideoWriter_fourcc(*"mp4v"), fps,
                              (first.shape[1], first.shape[0]))
+    if not writer.isOpened():
+        cap.release()
+        raise SystemExit(f"Не удалось создать видео {out_path}")
 
     log = []
     frame, idx, t_sum = first, 0, 0.0
@@ -103,7 +112,8 @@ def main():
           f"средняя скорость {n / t_sum:.1f} кадр/с -> {out_path}")
 
     if a.csv:
-        with open(a.csv, "w", newline="") as f:
+        Path(a.csv).parent.mkdir(parents=True, exist_ok=True)
+        with open(a.csv, "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
             w.writerow(["frame", "found", "source", "keypoints", "matches", "inliers",
                         "x0", "y0", "x1", "y1", "x2", "y2", "x3", "y3"])

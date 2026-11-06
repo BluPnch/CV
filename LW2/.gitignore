@@ -1,0 +1,18 @@
+# Keep the 16 report videos available for inclusion in this repository.
+# These exceptions override the parent repository's LW2/results/*.mp4 rule.
+!results/mona-lisa_sift.mp4
+!results/mona-lisa_orb.mp4
+!results/mona-lisa_akaze.mp4
+!results/mona-lisa_brisk.mp4
+!results/mona-lisa-blur_sift.mp4
+!results/mona-lisa-blur_orb.mp4
+!results/mona-lisa-blur_akaze.mp4
+!results/mona-lisa-blur_brisk.mp4
+!results/mona-lisa-blur-extra-credit_sift.mp4
+!results/mona-lisa-blur-extra-credit_orb.mp4
+!results/mona-lisa-blur-extra-credit_akaze.mp4
+!results/mona-lisa-blur-extra-credit_brisk.mp4
+!results/my_video_sift.mp4
+!results/my_video_orb.mp4
+!results/my_video_akaze.mp4
+!results/my_video_brisk.mp4

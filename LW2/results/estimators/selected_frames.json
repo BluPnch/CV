@@ -1,0 +1,274 @@
+[
+  {
+    "video": "mona-lisa",
+    "detector": "sift",
+    "frame": 451,
+    "acceptance_differs": false,
+    "corners_distance": 8.338218350959067,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  },
+  {
+    "video": "mona-lisa-blur",
+    "detector": "sift",
+    "frame": 451,
+    "acceptance_differs": false,
+    "corners_distance": 8.338218350959067,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  },
+  {
+    "video": "mona-lisa-blur-extra-credit",
+    "detector": "sift",
+    "frame": 119,
+    "acceptance_differs": false,
+    "corners_distance": 11.981203958477305,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  },
+  {
+    "video": "my_video",
+    "detector": "sift",
+    "frame": 172,
+    "acceptance_differs": false,
+    "corners_distance": 2.6269200976802796,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  },
+  {
+    "video": "mona-lisa",
+    "detector": "orb",
+    "frame": 505,
+    "acceptance_differs": true,
+    "corners_distance": 0.0,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 0,
+        "reason": "мало инлаеров"
+      }
+    }
+  },
+  {
+    "video": "mona-lisa-blur",
+    "detector": "orb",
+    "frame": 505,
+    "acceptance_differs": true,
+    "corners_distance": 0.0,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 0,
+        "reason": "мало инлаеров"
+      }
+    }
+  },
+  {
+    "video": "mona-lisa-blur-extra-credit",
+    "detector": "orb",
+    "frame": 109,
+    "acceptance_differs": true,
+    "corners_distance": 0.0,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 0,
+        "reason": "углы за камерой"
+      }
+    }
+  },
+  {
+    "video": "my_video",
+    "detector": "orb",
+    "frame": 176,
+    "acceptance_differs": false,
+    "corners_distance": 10.760357538121863,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  },
+  {
+    "video": "mona-lisa",
+    "detector": "akaze",
+    "frame": 444,
+    "acceptance_differs": true,
+    "corners_distance": 0.0,
+    "decisions": {
+      "ransac": {
+        "found": 0,
+        "reason": "мало инлаеров"
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  },
+  {
+    "video": "mona-lisa-blur",
+    "detector": "akaze",
+    "frame": 444,
+    "acceptance_differs": true,
+    "corners_distance": 0.0,
+    "decisions": {
+      "ransac": {
+        "found": 0,
+        "reason": "мало инлаеров"
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  },
+  {
+    "video": "mona-lisa-blur-extra-credit",
+    "detector": "akaze",
+    "frame": 406,
+    "acceptance_differs": false,
+    "corners_distance": 33.99097354753241,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  },
+  {
+    "video": "my_video",
+    "detector": "akaze",
+    "frame": 225,
+    "acceptance_differs": false,
+    "corners_distance": 9.248681971647663,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  },
+  {
+    "video": "mona-lisa",
+    "detector": "brisk",
+    "frame": 425,
+    "acceptance_differs": true,
+    "corners_distance": 0.0,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 0,
+        "reason": "вырожденная перспектива"
+      }
+    }
+  },
+  {
+    "video": "mona-lisa-blur",
+    "detector": "brisk",
+    "frame": 425,
+    "acceptance_differs": true,
+    "corners_distance": 0.0,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 0,
+        "reason": "вырожденная перспектива"
+      }
+    }
+  },
+  {
+    "video": "mona-lisa-blur-extra-credit",
+    "detector": "brisk",
+    "frame": 113,
+    "acceptance_differs": true,
+    "corners_distance": 0.0,
+    "decisions": {
+      "ransac": {
+        "found": 0,
+        "reason": "мало инлаеров"
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  },
+  {
+    "video": "my_video",
+    "detector": "brisk",
+    "frame": 285,
+    "acceptance_differs": false,
+    "corners_distance": 52.97167485910007,
+    "decisions": {
+      "ransac": {
+        "found": 1,
+        "reason": ""
+      },
+      "magsac": {
+        "found": 1,
+        "reason": ""
+      }
+    }
+  }
+]

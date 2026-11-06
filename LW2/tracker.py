@@ -11,9 +11,9 @@
      выпуклость четырёхугольника, площадь, отсутствие отражения);
      если проверка не пройдена, считается, что объекта в кадре нет.
 
-Каждый кадр сравнивается с исходным эталоном, а не с предыдущим кадром,
-поэтому ошибка не накапливается (нет дрейфа) и после потери объекта
-(перекрытие, выход из кадра) он находится заново без дополнительной логики.
+Прямое детектирование сравнивает каждый кадр с исходным эталоном.
+В гибридном режиме при его неудаче используются оптический поток
+и ограниченный прогноз; на этих интервалах возможен дрейф рамки.
 """
 
 from dataclasses import dataclass, field
@@ -122,7 +122,13 @@ class KeypointTracker:
         if roi is None:
             x, y, w, h = 0, 0, gray.shape[1], gray.shape[0]
         else:
+            if len(roi) != 4 or roi[0] < 0 or roi[1] < 0 or roi[2] <= 0 or roi[3] <= 0:
+                raise ValueError("ROI должен иметь вид x,y,w,h с положительными w,h")
+            if roi[0] + roi[2] > frame.shape[1] or roi[1] + roi[3] > frame.shape[0]:
+                raise ValueError("ROI выходит за границы первого кадра")
             x, y, w, h = (int(round(v * scale)) for v in roi)
+            if w < 1 or h < 1:
+                raise ValueError("ROI слишком мал после уменьшения кадра")
 
         mask = np.zeros_like(gray)
         mask[y:y + h, x:x + w] = 255
@@ -227,8 +233,12 @@ class KeypointTracker:
                   criteria=(cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 30, 0.01))
         p0 = self.flow_pts.reshape(-1, 1, 2)
         p1, st1, _ = cv2.calcOpticalFlowPyrLK(self.prev_gray, gray, p0, None, **lk)
+        if p1 is None or st1 is None:
+            return TrackResult(False, source="flow", reason="поток не найден"), None
         # проверка «вперёд-назад»: точка, перенесённая обратно, должна вернуться на место
         p0r, st2, _ = cv2.calcOpticalFlowPyrLK(gray, self.prev_gray, p1, None, **lk)
+        if p0r is None or st2 is None:
+            return TrackResult(False, source="flow", reason="обратный поток не найден"), None
         fb = np.linalg.norm((p0 - p0r).reshape(-1, 2), axis=1)
         ok = (st1.ravel() == 1) & (st2.ravel() == 1) & (fb < 1.0)
         res = TrackResult(False, source="flow")
@@ -291,6 +301,8 @@ class KeypointTracker:
     # ------------------------------------------------------------- проверки
     def _check(self, H, corners, n_inl, n_matches, min_inliers, min_ratio=None) -> str:
         """Проверка правдоподобия найденной гомографии. Пустая строка - всё в порядке."""
+        if not np.isfinite(H).all() or not np.isfinite(corners).all():
+            return "нечисловая гомография"
         if n_inl < min_inliers:
             return "мало инлаеров"
         if n_inl < (min_ratio or self.min_inlier_ratio) * n_matches:
@@ -350,12 +362,12 @@ def draw_result(frame: np.ndarray, res: TrackResult, label: str = "Object",
 
 
 def draw_hud(frame: np.ndarray, lines: list[str]) -> np.ndarray:
-    """Служебная информация в левом верхнем углу (кадр, детектор, fps)."""
+    """Служебная информация снизу слева, отдельно от подписи над объектом."""
     th = max(1, round(max(frame.shape[:2]) / 700))
     fs = th * 0.5
-    y = 0
-    for s in lines:
-        (tw, tht), base = cv2.getTextSize(s, cv2.FONT_HERSHEY_SIMPLEX, fs, th)
+    sizes = [cv2.getTextSize(s, cv2.FONT_HERSHEY_SIMPLEX, fs, th) for s in lines]
+    y = max(0, frame.shape[0] - sum(size[1] + base + 6 for size, base in sizes) - 8)
+    for s, ((tw, tht), base) in zip(lines, sizes):
         y += tht + base + 6
         cv2.rectangle(frame, (4, y - tht - base - 2), (tw + 12, y + 2), (0, 0, 0), -1)
         cv2.putText(frame, s, (8, y - base), cv2.FONT_HERSHEY_SIMPLEX, fs, (255, 255, 255), th, cv2.LINE_AA)

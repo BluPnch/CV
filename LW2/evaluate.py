@@ -1,209 +1,208 @@
-"""Оценка трекера.
-
-1) Синтетические видео с известной разметкой (make_test_videos.py):
-   recall      - доля кадров, где объект виден (>= 20 % площади), и рамка есть
-   success@10  - доля таких кадров, где ошибка углов < 10 px
-   false pos.  - кадры, где объекта нет (< 5 % видно), а рамка нарисована
-   err median / p95 - средняя по 4 углам ошибка рамки, px
-
-2) Видео из задания (test-videos/mona-lisa*.avi), разметки нет:
-   доля кадров с рамкой (по источникам: эталон / поток / предсказание), скорость.
-   mona-lisa-blur* - это mona-lisa.avi с искусственно размытыми кадрами, поэтому
-   рамки трекера на чётком видео служат опорной разметкой для размытых версий.
-
-Режимы: detect - только детектирование по эталону на каждом кадре;
-        hybrid - детектирование + оптический поток + предсказание (по умолчанию).
+﻿"""Полный эксперимент: четыре разрешённых видео, четыре детектора, три режима.
+Первый кадр служит эталоном и исключается из итоговых метрик.
 """
-
 import argparse
 import csv
+import json
+import platform
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 import cv2
 import numpy as np
 
+from experiment_config import ROOT, VIDEO_FILES, validate_video
 from tracker import DETECTORS, KeypointTracker, draw_hud, draw_result
 
-ROOT = Path(__file__).parent
-SYNTH = ("test1_easy", "test2_perspective", "test3_hard")
-REAL = ("mona-lisa", "mona-lisa-blur", "mona-lisa-blur-extra-credit")
-MODES = {"detect": dict(use_flow=False, max_predict=0), "hybrid": dict(),
-         "hybrid30": dict(max_predict=30)}  # для сравнения: предсказание до 1 с
-
-
-def run(video: Path, detector: str, mode: str, save_to: Path | None = None, label="Object"):
-    cap = cv2.VideoCapture(str(video))
-    ok, frame = cap.read()
-    tracker = KeypointTracker(detector, **MODES[mode])
-    tracker.init(frame)
-    writer = None
-    if save_to:
-        writer = cv2.VideoWriter(str(save_to), cv2.VideoWriter_fourcc(*"mp4v"),
-                                 cap.get(cv2.CAP_PROP_FPS), (frame.shape[1], frame.shape[0]))
-    sources, corners, inliers, times = [], [], [], []
-    idx = 0
-    while ok:
-        t0 = time.perf_counter()
-        res = tracker.update(frame)
-        times.append(time.perf_counter() - t0)
-        sources.append(res.source if res.found else "")
-        corners.append(res.corners if res.found else np.full((4, 2), np.nan))
-        inliers.append(res.n_inliers)
-        if writer:
-            vis = draw_result(frame, res, label, draw_points=True)
-            draw_hud(vis, [f"frame {idx}  {detector.upper()}",
-                           f"found ({res.source}), {res.n_inliers} inliers" if res.found else "not found"])
-            writer.write(vis)
-        ok, frame = cap.read()
-        idx += 1
-    if writer:
-        writer.release()
-    return np.array(sources), np.array(corners), np.array(inliers), np.array(times)
-
-
-def corner_error(a, b):
-    return np.linalg.norm(a - b, axis=2).mean(1)  # nan, где рамки нет
-
-
-def eval_synthetic(detectors, save_video, out):
-    rows = []
-    for name in SYNTH:
-        gt = np.load(ROOT / "videos" / f"{name}_gt.npz")
-        vis_frac = gt["visible"]
-        visible, absent = vis_frac >= 0.2, vis_frac < 0.05
-        per_frame = {"frame": np.arange(len(vis_frac)), "visible": vis_frac.round(3)}
-        for det in detectors:
-            for mode in MODES:
-                save = out / f"{name}_{det}.mp4" if det in save_video and mode == "hybrid" else None
-                src, corners, inl, times = run(ROOT / "videos" / f"{name}.mp4", det, mode, save)
-                found = src != ""
-                err = corner_error(corners, gt["corners"])
-                ok = found & visible
-                rows.append(dict(
-                    video=name, detector=det, mode=mode,
-                    recall=ok.sum() / visible.sum(),
-                    success10=(ok & (err < 10)).sum() / visible.sum(),
-                    false_pos=int((found & absent).sum()), absent=int(absent.sum()),
-                    err_median=np.median(err[ok]), err_p95=np.percentile(err[ok], 95),
-                    by_flow=int((src == "flow").sum()), by_predict=int((src == "predict").sum()),
-                    fps=1 / times[1:].mean()))
-                per_frame[f"{det}_{mode}_err"] = err.round(2)
-                per_frame[f"{det}_{mode}_src"] = src
-                r = rows[-1]
-                print(f"{name:18s} {det:6s} {mode:6s} recall={r['recall']:.3f} succ@10={r['success10']:.3f} "
-                      f"FP={r['false_pos']}/{r['absent']} err_med={r['err_median']:.2f} "
-                      f"p95={r['err_p95']:.2f} flow={r['by_flow']} pred={r['by_predict']} "
-                      f"fps={r['fps']:.1f}", flush=True)
-        write_csv(out / f"per_frame_{name}.csv", per_frame)
-
-    md = ["| Видео | Детектор | Режим | Recall | Success@10px | Ложные срабатывания "
-          "| Ошибка углов, медиана, px | Ошибка углов, 95-й перц., px | Кадров потоком / предсказано | FPS |",
-          "|---|---|---|---|---|---|---|---|---|---|"]
-    for r in rows:
-        fp = f"{r['false_pos']} / {r['absent']}" if r["absent"] else "—"
-        md.append(f"| {r['video']} | {r['detector'].upper()} | {r['mode']} | {100 * r['recall']:.1f} % | "
-                  f"{100 * r['success10']:.1f} % | {fp} | {r['err_median']:.2f} | {r['err_p95']:.2f} | "
-                  f"{r['by_flow']} / {r['by_predict']} | {r['fps']:.1f} |")
-    (out / "metrics_synthetic.md").write_text("\n".join(md) + "\n", encoding="utf-8")
-    write_rows(out / "metrics_synthetic.csv", rows)
-
-
-def eval_real(detectors, save_video, out):
-    rows = []
-    ref = {}
-    for name in REAL:
-        per_frame = {}
-        for det in detectors:
-            for mode in MODES:
-                save = out / f"{name}_{det}.mp4" if det in save_video and mode == "hybrid" else None
-                src, corners, inl, times = run(ROOT / "test-videos" / f"{name}.avi", det, mode, save, "Mona Lisa")
-                if name == "mona-lisa":
-                    ref[det, mode] = corners
-                n = len(src)
-                per_frame.setdefault("frame", np.arange(n))
-                per_frame[f"{det}_{mode}_src"] = src
-                per_frame[f"{det}_{mode}_inliers"] = inl
-                r = dict(video=name, detector=det, mode=mode, frames=n,
-                         found=(src != "").sum() / n,
-                         by_detect=int((src == "detect").sum()), by_flow=int((src == "flow").sum()),
-                         by_predict=int((src == "predict").sum()), fps=1 / times[1:].mean(),
-                         err_blur_mean=np.nan, err_blur_max=np.nan)
-                if name != "mona-lisa":
-                    # опорная разметка - тот же трекер на чётком видео; ошибка на размытых кадрах
-                    blurred = blurred_frames(name)
-                    e = corner_error(corners, ref[det, "hybrid"])[blurred]
-                    per_frame[f"{det}_{mode}_err_vs_sharp"] = corner_error(corners, ref[det, "hybrid"]).round(2)
-                    r["blurred"] = int(blurred.sum())
-                    r["found_blurred"] = int(np.isfinite(e).sum())
-                    if np.isfinite(e).any():
-                        r["err_blur_mean"], r["err_blur_max"] = np.nanmean(e), np.nanmax(e)
-                rows.append(r)
-                print(f"{name:28s} {det:6s} {mode:6s} found={100 * r['found']:.1f}% "
-                      f"(detect {r['by_detect']}, flow {r['by_flow']}, predict {r['by_predict']}) "
-                      f"blur err={r['err_blur_mean']:.1f}/{r['err_blur_max']:.1f} fps={r['fps']:.1f}", flush=True)
-        write_csv(out / f"per_frame_{name}.csv", per_frame)
-
-    md = ["| Видео | Детектор | Режим | Кадров с рамкой | по эталону / потоком / предсказано "
-          "| Размытых кадров с рамкой | Ошибка на размытых кадрах, средняя / макс., px | FPS |",
-          "|---|---|---|---|---|---|---|---|"]
-    for r in rows:
-        blur = f"{r['found_blurred']} / {r['blurred']}" if "blurred" in r else "—"
-        err = f"{r['err_blur_mean']:.1f} / {r['err_blur_max']:.1f}" if np.isfinite(r["err_blur_mean"]) else "—"
-        md.append(f"| {r['video']} | {r['detector'].upper()} | {r['mode']} | {100 * r['found']:.1f} % | "
-                  f"{r['by_detect']} / {r['by_flow']} / {r['by_predict']} | {blur} | {err} | {r['fps']:.1f} |")
-    (out / "metrics_test_videos.md").write_text("\n".join(md) + "\n", encoding="utf-8")
-    write_rows(out / "metrics_test_videos.csv", rows)
-
-
-_blur_cache = {}
-
-
-def blurred_frames(name):
-    """Номера кадров, которые в размытой версии отличаются от исходного видео."""
-    if name not in _blur_cache:
-        a = cv2.VideoCapture(str(ROOT / "test-videos" / "mona-lisa.avi"))
-        b = cv2.VideoCapture(str(ROOT / "test-videos" / f"{name}.avi"))
-        diff = []
-        while True:
-            ok1, fa = a.read()
-            ok2, fb = b.read()
-            if not (ok1 and ok2):
-                break
-            diff.append(np.abs(fa.astype(np.int16) - fb).mean())
-        # в extra-credit все кадры немного отличаются (перекодирование, ~2), размытые - на порядок
-        _blur_cache[name] = np.array(diff) > 5
-    return _blur_cache[name]
-
-
-def write_csv(path, cols):
-    with open(path, "w", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(cols.keys())
-        w.writerows(zip(*cols.values()))
+MODES = {
+    'detect': dict(use_flow=False, max_predict=0),
+    'flow': dict(use_flow=True, max_predict=0),
+    'hybrid': dict(use_flow=True, max_predict=15),
+}
 
 
 def write_rows(path, rows):
-    keys = list(dict.fromkeys(k for r in rows for k in r))
-    with open(path, "w", newline="") as f:
-        w = csv.DictWriter(f, keys)
-        w.writeheader()
-        w.writerows(rows)
+    keys = list(dict.fromkeys(k for row in rows for k in row))
+    with Path(path).open('w', newline='', encoding='utf-8') as file:
+        writer = csv.DictWriter(file, keys)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def longest_run(mask):
+    best = current = 0
+    for value in mask:
+        current = current + 1 if value else 0
+        best = max(best, current)
+    return best
+
+
+def run(video, detector, mode, save_to=None):
+    validate_video(video)
+    cv2.setRNGSeed(42)
+    cap = cv2.VideoCapture(str(video))
+    writer = None
+    records, corners = [], []
+    try:
+        ok, frame = cap.read()
+        if not ok:
+            raise RuntimeError(f'Не удалось прочитать первый кадр {video}')
+        fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+        tracker = KeypointTracker(detector, **MODES[mode])
+        n_template = tracker.init(frame)
+        if save_to:
+            writer = cv2.VideoWriter(str(save_to), cv2.VideoWriter_fourcc(*'mp4v'),
+                                     fps, (frame.shape[1], frame.shape[0]))
+            if not writer.isOpened():
+                raise RuntimeError(f'Не удалось создать {save_to}')
+        idx = 0
+        while ok:
+            t0 = time.perf_counter()
+            res = tracker.update(frame)
+            elapsed = 1000 * (time.perf_counter() - t0)
+            quad = res.corners if res.found else np.full((4, 2), np.nan)
+            corners.append(quad.copy())
+            records.append(dict(
+                frame=idx, time_s=idx / fps, evaluated=int(idx > 0),
+                found=int(res.found), measured=int(res.found and res.source != 'predict'),
+                source=res.source if res.found else '', keypoints=res.n_keypoints,
+                matches=res.n_matches, inliers=res.n_inliers, processing_ms=elapsed,
+                **{f'{axis}{i}': float(quad[i, j])
+                   for i in range(4) for j, axis in enumerate('xy')},
+            ))
+            if writer:
+                label = 'Book' if video.stem == 'my_video' else 'Mona Lisa'
+                vis = draw_result(frame, res, label)
+                status = res.source if res.found else 'lost'
+                draw_hud(vis, [f'{detector.upper()} / {mode} / frame {idx}',
+                               f'{status} / {res.n_inliers} inliers'])
+                writer.write(vis)
+            ok, frame = cap.read()
+            idx += 1
+        if len(records) < 2:
+            raise RuntimeError(f'Для оценки нужно хотя бы два кадра: {video}')
+        return records, np.asarray(corners), fps, n_template
+    finally:
+        cap.release()
+        if writer is not None:
+            writer.release()
+
+
+def blur_difference(sharp, blurred):
+    """Различие синхронных версий; порог 5 — эвристика, не разметка блюра."""
+    a, b = cv2.VideoCapture(str(sharp)), cv2.VideoCapture(str(blurred))
+    difference = []
+    try:
+        if not np.isclose(a.get(cv2.CAP_PROP_FPS), b.get(cv2.CAP_PROP_FPS)):
+            raise ValueError('Версии видео имеют разную частоту кадров')
+        while True:
+            oka, fa = a.read()
+            okb, fb = b.read()
+            if oka != okb:
+                raise ValueError('Версии видео имеют разную длину')
+            if not oka:
+                break
+            if fa.shape != fb.shape:
+                raise ValueError('Версии видео имеют разные размеры кадров')
+            difference.append(float(np.abs(fa.astype(np.int16) - fb).mean()))
+    finally:
+        a.release()
+        b.release()
+    return np.asarray(difference)
+
+
+def summarize(records, video, det, mode, fps, n_template):
+    rows = records[1:]
+    sources = np.array([r['source'] for r in rows])
+    ms = np.array([r['processing_ms'] for r in rows])
+    measured = np.array([r['measured'] for r in rows], bool)
+    return dict(
+        video=video.stem, detector=det, mode=mode, frames=len(records),
+        evaluated_frames=len(rows), input_fps=fps, template_keypoints=n_template,
+        found=float(np.mean(sources != '')), measured=float(measured.mean()),
+        by_detect=int((sources == 'detect').sum()), by_flow=int((sources == 'flow').sum()),
+        by_predict=int((sources == 'predict').sum()), fps=1000 / ms.mean(),
+        latency_median_ms=float(np.median(ms)), latency_p95_ms=float(np.percentile(ms, 95)),
+        longest_lost=longest_run(sources == ''), longest_unmeasured=longest_run(~measured),
+        keypoints_mean=float(np.mean([r['keypoints'] for r in rows])),
+    )
+
+
+def eval_videos(detectors, save_video, out):
+    videos = [validate_video(ROOT / 'videos' / name) for name in VIDEO_FILES]
+    logs = out / 'per_frame'
+    logs.mkdir(parents=True, exist_ok=True)
+    differences = {video.stem: blur_difference(videos[0], video) for video in videos[1:3]}
+    for name, diff in differences.items():
+        write_rows(out / f'blur_mask_{name}.csv', [
+            dict(frame=i, mean_abs_difference=value, changed=int(value > 5))
+            for i, value in enumerate(diff)])
+    metrics, references = [], {}
+    for video in videos:
+        combined = None
+        for det in detectors:
+            for mode in MODES:
+                save = out / f'{video.stem}_{det}.mp4' if det in save_video and mode == 'hybrid' else None
+                records, corners, fps, n_tpl = run(video, det, mode, save)
+                row = summarize(records, video, det, mode, fps, n_tpl)
+                if video == videos[0]:
+                    references[det, mode] = corners
+                elif video.stem in differences:
+                    reference = references[det, mode]
+                    if len(reference) != len(corners):
+                        raise ValueError('Несовпадение кадров опорного и размытого видео')
+                    errors = np.linalg.norm(corners - reference, axis=2).mean(axis=1)
+                    mask = differences[video.stem] > 5
+                    mask[0] = False
+                    paired = mask & np.isfinite(errors)
+                    measured = np.array([r['measured'] for r in records], bool)
+                    row.update(blurred=int(mask.sum()), paired_blurred=int(paired.sum()),
+                               found_blurred=int(sum(r['found'] for r, m in zip(records, mask) if m)),
+                               measured_blurred=int((measured & mask).sum()),
+                               err_blur_mean=float(errors[paired].mean()) if paired.any() else np.nan,
+                               err_blur_max=float(errors[paired].max()) if paired.any() else np.nan)
+                    for record, error in zip(records, errors):
+                        record['err_vs_sharp'] = float(error)
+                write_rows(logs / f'{video.stem}_{det}_{mode}.csv', records)
+                if combined is None:
+                    combined = [dict(frame=r['frame']) for r in records]
+                for dst, record in zip(combined, records):
+                    dst.update({f'{det}_{mode}_{k}': v for k, v in record.items() if k != 'frame'})
+                metrics.append(row)
+                write_rows(out / 'metrics_test_videos.csv', metrics)
+                print(f"{video.stem:28s} {det:5s} {mode:6s} "
+                      f"frame={100*row['found']:.1f}% measured={100*row['measured']:.1f}% "
+                      f"FPS={row['fps']:.1f}", flush=True)
+        write_rows(out / f'per_frame_{video.stem}.csv', combined)
+    header = ['| Видео | Детектор | Режим | Кадров с рамкой, % | Измерено, % | Прогноз, кадров | FPS | P95, мс | Макс. потеря, кадров |',
+              '|---|---|---|---:|---:|---:|---:|---:|---:|']
+    for r in metrics:
+        header.append(f"| {r['video']} | {r['detector'].upper()} | {r['mode']} | "
+                      f"{100*r['found']:.2f} | {100*r['measured']:.2f} | {r['by_predict']} | "
+                      f"{r['fps']:.2f} | {r['latency_p95_ms']:.2f} | {r['longest_lost']} |")
+    (out / 'metrics_test_videos.md').write_text('\n'.join(header) + '\n', encoding='utf-8')
 
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--detectors", nargs="+", default=list(DETECTORS))
-    ap.add_argument("--save-video", nargs="*", default=["sift"], help="для каких детекторов сохранять видео")
-    ap.add_argument("--only", choices=("synthetic", "real"))
-    a = ap.parse_args()
-    out = ROOT / "results"
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--detectors', nargs='+', choices=DETECTORS, default=list(DETECTORS))
+    parser.add_argument('--save-video', nargs='*', choices=DETECTORS, default=list(DETECTORS))
+    args = parser.parse_args()
+    cv2.setNumThreads(1)
+    out = ROOT / 'results'
     out.mkdir(exist_ok=True)
-    if a.only != "synthetic":
-        eval_real(a.detectors, a.save_video, out)
-    if a.only != "real":
-        eval_synthetic(a.detectors, a.save_video, out)
+    metadata = dict(started_utc=datetime.now(timezone.utc).isoformat(),
+                    python=platform.python_version(), opencv=cv2.__version__, numpy=np.__version__,
+                    platform=platform.platform(), processor=platform.processor(), threads=1,
+                    rng_seed=42, ratio=0.75, min_inliers=15, max_side=960,
+                    modes=MODES, detectors=args.detectors, save_video=args.save_video,
+                    excluded_template_frame=0,
+                    videos=[dict(name=name, bytes=(ROOT / 'videos' / name).stat().st_size)
+                            for name in VIDEO_FILES])
+    (out / 'experiment.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding='utf-8')
+    eval_videos(args.detectors, args.save_video, out)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
