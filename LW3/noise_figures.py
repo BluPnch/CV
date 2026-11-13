@@ -19,8 +19,60 @@ METRICS = (('psnr', 'PSNR, dB ↑'), ('lpips', 'LPIPS ↓'),
 COLORS = {'baseline': '#475569', 'one': '#2563eb', 'mixed': '#d97706'}
 
 
+def plot_each_noise(root):
+    """Показывает метрики каждого шума и соответствующие зашумлённые входы."""
+    from PIL import Image
+    sources = []
+    for directory in ('results', 'results_background'):
+        output = root / directory
+        with (output / 'metrics.csv').open(encoding='utf-8', newline='') as handle:
+            rows = list(csv.DictReader(handle))
+        for photo in sorted({r['image'] for r in rows}):
+            selected = {(r['degradation'], r['mask']): r for r in rows
+                        if r['image'] == photo and int(r['seed']) == 42
+                        and float(r['strength']) == .35}
+            sources.append((photo, output, selected))
+    destination = root / 'results' / 'noise_studies'
+    destination.mkdir(exist_ok=True)
+    for noise, label in zip(NOISES, LABELS):
+        fig, axes = plt.subplots(1, 3, figsize=(14, 4.5))
+        positions = np.arange(len(sources))
+        for ax, (metric, title) in zip(axes, METRICS):
+            for offset, mask in enumerate(('baseline', 'one', 'mixed')):
+                values = [float(selected[noise, mask][metric])
+                          if selected[noise, mask]['status'] == 'ok' else np.nan
+                          for _, _, selected in sources]
+                xs = positions + (offset - 1) * .25
+                ax.bar(xs, values, width=.24, color=COLORS[mask], label=mask)
+                for x, value in zip(xs, values):
+                    if np.isnan(value):
+                        ax.text(x, .02, '×', transform=ax.get_xaxis_transform(),
+                                ha='center', color=COLORS[mask], fontsize=14)
+            ax.set_title(title)
+            ax.set_xticks(positions, [Path(p).stem for p, _, _ in sources])
+            ax.grid(axis='y', alpha=.25)
+            ax.set_axisbelow(True)
+        axes[0].legend()
+        fig.suptitle(label.replace('\n', ' ') + ' | seed=42, strength=0.35; × = safety_rejected')
+        fig.tight_layout()
+        fig.savefig(destination / f'{noise}.png', dpi=160)
+        fig.savefig(destination / f'{noise}.svg')
+        plt.close(fig)
+        fig, axes = plt.subplots(1, len(sources), figsize=(12, 5))
+        for ax, (photo, output, _) in zip(axes, sources):
+            with Image.open(output / 'images' / photo / noise / 'seed_42' / 'input.png') as image:
+                ax.imshow(image)
+            ax.set_title(photo)
+            ax.axis('off')
+        fig.suptitle('Degraded inputs: ' + label.replace('\n', ' '))
+        fig.tight_layout()
+        fig.savefig(destination / f'{noise}_inputs.png', dpi=140)
+        plt.close(fig)
+
+
 def main():
     root = Path(__file__).resolve().parent
+    plot_each_noise(root)
     for directory in ('results', 'results_background'):
         output = root / directory
         with (output / 'metrics.csv').open(encoding='utf-8', newline='') as handle:
