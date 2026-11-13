@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "rubezh_vekov.jpg",
+    "degradation": "gaussian_5",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "eb466656fc96638d9fd04df540cfbb9b07a35dd203b2f294b7ed1fa38555d10d",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\rubezh_vekov.jpg\\gaussian_5\\seed_42\\one.png",
+  "seconds": 0.0010333000027458183
+}

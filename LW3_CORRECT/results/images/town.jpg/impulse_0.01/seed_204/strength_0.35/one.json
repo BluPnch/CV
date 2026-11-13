@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "town.jpg",
+    "degradation": "impulse_0.01",
+    "mask": "one",
+    "seed": 204,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "af6aeb2c7c6605ca64617353a1532e2f0a1f8d29c98f7cd47dff41d4b7888c34",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\town.jpg\\impulse_0.01\\seed_204\\one.png",
+  "seconds": 0.001832900001318194
+}

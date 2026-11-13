@@ -1,0 +1,17 @@
+{
+  "case": {
+    "image": "town.jpg",
+    "degradation": "gaussian_15",
+    "mask": "one",
+    "seed": 366,
+    "strength": 0.35,
+    "studies": [
+      "noise",
+      "seeds"
+    ]
+  },
+  "status": "ok",
+  "sha256": "797743a10ae7d292f0aac0dd712b81b6f2256a666a3e3b8998b92ebd086d1c94",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\town.jpg\\gaussian_15\\seed_366\\one.png",
+  "seconds": 0.0012060000008204952
+}

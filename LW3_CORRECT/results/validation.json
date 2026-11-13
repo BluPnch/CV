@@ -1,0 +1,24 @@
+{
+  "cases": 585,
+  "successful": 578,
+  "rejected": 7,
+  "zero_exact": 135,
+  "full_masks_reused": 141,
+  "noise_groups": 108,
+  "old_files_unchanged": 1857,
+  "outside_reference": "clean",
+  "outside_max_error": 0,
+  "psnr_recomputed_from_pixels": true,
+  "matched_control_verified": true,
+  "mean_and_sd_verified": true,
+  "readme_links_verified": true,
+  "code_sha256": {
+    "deduplicate.py": "2780b5b238c8de5c4ff041a78c7cef345af54ed77295d489be273ba5992a40e5",
+    "experiment.py": "09ed59020a3f2b539600edd111da4284740e0faad1ba07a63ee990d6b7f47b8b",
+    "report.py": "d0c73d7a9ecbcab79d631c35e34097177233da75617eba51baf451112a09ade6",
+    "run_all.py": "e4e19e040dda84f981d941db0fe91e598e09a5b71dad626df1a2ae3f2a88f232",
+    "sr_inpainting.py": "5001f23278f3fa17644f281aff6664750fd07ec57a292c80ffa19618254b774b",
+    "test_correct.py": "9c3249fd222a9641c17264e7801aad4cc6d030a95b8989ce7ef26faaf9114e87",
+    "validate.py": "5411853377e08929eeceee4ecff9c6391f38026214503a42cefbc38a6f508c84"
+  }
+}

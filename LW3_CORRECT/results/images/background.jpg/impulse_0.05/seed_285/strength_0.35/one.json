@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "impulse_0.05",
+    "mask": "one",
+    "seed": 285,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "c5437a34e263c9d2e765cc9da6796cdcbd62a9dd3850c016c970339dfdc7a433",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\background.jpg\\impulse_0.05\\seed_285\\one.png",
+  "seconds": 0.0009758000014699064
+}

@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "rubezh_vekov.jpg",
+    "degradation": "impulse_0.01",
+    "mask": "one",
+    "seed": 204,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "d0f68ca38be651c8634b5bcaf2b9f119327f4387d2953f9f4e2f4d94a4ef871b",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\rubezh_vekov.jpg\\impulse_0.01\\seed_204\\one.png",
+  "seconds": 0.0017586000030860305
+}

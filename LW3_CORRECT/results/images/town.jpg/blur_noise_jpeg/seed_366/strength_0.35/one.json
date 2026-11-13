@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "town.jpg",
+    "degradation": "blur_noise_jpeg",
+    "mask": "one",
+    "seed": 366,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "f98c87b172e6609765c449479218121f2979c5e489629963c1411c395a2cb4e5",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\town.jpg\\blur_noise_jpeg\\seed_366\\one.png",
+  "seconds": 0.0018351999970036559
+}

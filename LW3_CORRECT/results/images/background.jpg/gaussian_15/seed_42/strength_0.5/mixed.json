@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.5,
+    "studies": [
+      "strength"
+    ]
+  },
+  "status": "ok",
+  "sha256": "382a706cc56dbadb7df5c5e7c5bc5ecee0131fd81b64c0df4780d3783a03bb04",
+  "reused_from": null,
+  "seconds": 15.326140999997733
+}

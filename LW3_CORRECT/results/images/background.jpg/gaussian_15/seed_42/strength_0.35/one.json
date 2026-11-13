@@ -1,0 +1,20 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise",
+      "masks",
+      "seeds",
+      "strength",
+      "rectangle_sizes"
+    ]
+  },
+  "status": "ok",
+  "sha256": "2c6a1057e30ff19dfc3be4481d71dec5c380b8ecd9d4656123beb5808c16716b",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\background.jpg\\gaussian_15\\seed_42\\one.png",
+  "seconds": 0.000771099999838043
+}

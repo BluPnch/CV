@@ -1,0 +1,10 @@
+[
+  {
+    "previous_code": {
+      "sr_inpainting.py": "5001f23278f3fa17644f281aff6664750fd07ec57a292c80ffa19618254b774b",
+      "experiment.py": "09ed59020a3f2b539600edd111da4284740e0faad1ba07a63ee990d6b7f47b8b",
+      "run_all.py": "4ff4cd439593f3fcddcdbf334f8eb6ee2e6a8ab3dfd9f106b8a3ca0616e6ce93"
+    },
+    "reason": "Atomic identical-PNG writes and deduplication after disk-full; numerical algorithm unchanged"
+  }
+]

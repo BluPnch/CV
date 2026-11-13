@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "blur_noise_jpeg",
+    "mask": "one",
+    "seed": 123,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "3d60cf081bf700d79e07446e04a2e2bd7aa68fded4f060e9e7e8d9f5a1662631",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\background.jpg\\blur_noise_jpeg\\seed_123\\one.png",
+  "seconds": 0.0009534999990137294
+}

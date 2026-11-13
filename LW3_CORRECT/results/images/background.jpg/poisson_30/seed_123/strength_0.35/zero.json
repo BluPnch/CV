@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "poisson_30",
+    "mask": "zero",
+    "seed": 123,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "6a3cdee56f5e4ade9c1042fcdf3c61c04548e0a25cf8bd4db357b4bffb173e95",
+  "reused_from": null,
+  "seconds": 0.019144400001096074
+}

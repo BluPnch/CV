@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "mask": "one",
+    "seed": 366,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "8ca5db71d9b5357d404ed627e116798840895d2cbc6de2ab83eefb3f35aab65d",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\background.jpg\\bicubic\\seed_366\\one.png",
+  "seconds": 0.0007172000005084556
+}

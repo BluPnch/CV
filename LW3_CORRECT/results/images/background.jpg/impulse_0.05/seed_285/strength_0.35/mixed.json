@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "impulse_0.05",
+    "mask": "mixed",
+    "seed": 285,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "cadd89c3ccf83ba2995fa727d3358bee92d7f6e6911458a4cb3d7e872cae6fcf",
+  "reused_from": null,
+  "seconds": 6.262534300003608
+}

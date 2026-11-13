@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "blur_noise_jpeg",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "213edb2a79a1798bafe6c55a3a64ed2346aab8886446b44620b3b7e7e72f974a",
+  "reused_from": null,
+  "seconds": 6.2373796999963815
+}

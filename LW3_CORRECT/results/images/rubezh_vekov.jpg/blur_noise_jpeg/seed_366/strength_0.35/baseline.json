@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "rubezh_vekov.jpg",
+    "degradation": "blur_noise_jpeg",
+    "mask": "baseline",
+    "seed": 366,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "efa9bf0eca6c8d776dbc3c8d7449beda417a6bcb5f6f0da69ba6ce609f67973e",
+  "reused_from": null,
+  "seconds": 0.029828099999576807
+}

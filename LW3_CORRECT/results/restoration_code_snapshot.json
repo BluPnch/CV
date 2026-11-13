@@ -1,0 +1,8 @@
+{
+  "code_during_restore": {
+    "sr_inpainting.py": "5001f23278f3fa17644f281aff6664750fd07ec57a292c80ffa19618254b774b",
+    "experiment.py": "09ed59020a3f2b539600edd111da4284740e0faad1ba07a63ee990d6b7f47b8b",
+    "run_all.py": "2a8ced59cc7da807cc90b83e00c9dc1a6b4fb167ce19aaeaee880dbed8709155"
+  },
+  "update_before_evaluation": "SD of infinite PSNR is undefined; no change to restoration algorithm"
+}

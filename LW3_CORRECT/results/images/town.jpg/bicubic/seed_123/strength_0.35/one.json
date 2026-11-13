@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "town.jpg",
+    "degradation": "bicubic",
+    "mask": "one",
+    "seed": 123,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "fef44aefbd3302775ce7a5ce75e0284186ee76a3fb7fcaa395fbb5479d58e60e",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\town.jpg\\bicubic\\seed_123\\one.png",
+  "seconds": 0.0016402999972342514
+}

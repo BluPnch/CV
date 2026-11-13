@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "rubezh_vekov.jpg",
+    "degradation": "blur_noise_jpeg",
+    "mask": "one",
+    "seed": 123,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "status": "ok",
+  "sha256": "067ffe90436109a5c1e1dc83db8c31c94557a7fd1ea39ea7cbaaa8f7af37be1c",
+  "reused_from": "C:\\ITMO\\sem1\\CV\\LW3\\results_noise_repeats\\images\\rubezh_vekov.jpg\\blur_noise_jpeg\\seed_123\\one.png",
+  "seconds": 0.0010496999966562726
+}

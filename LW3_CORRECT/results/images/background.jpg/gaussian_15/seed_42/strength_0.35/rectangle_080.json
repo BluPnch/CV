@@ -1,0 +1,16 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "rectangle_080",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "rectangle_sizes"
+    ]
+  },
+  "status": "ok",
+  "sha256": "4b9ecc5ea2957ee78c8fce4671ddcedc76fe2371fd224c77f8b425e059553fb1",
+  "reused_from": null,
+  "seconds": 6.370038700006262
+}
