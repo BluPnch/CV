@@ -1,0 +1,14 @@
+{
+  "case": {
+    "image": "town.jpg",
+    "degradation": "gaussian_15",
+    "mask": "stripes",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks"
+    ]
+  },
+  "seconds": 18.089216100001067,
+  "sha256": "e2a265ffc7c290549aec7681071b4fc57ae80b22e696e1a430690fae27f61eac"
+}

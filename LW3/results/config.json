@@ -1,0 +1,18 @@
+{
+  "hr": "LW3\\input",
+  "output": "LW3\\results",
+  "model": "LW3/.cache/sd15",
+  "max_side": 512,
+  "steps": 30,
+  "strength": 0.35,
+  "seed": 42,
+  "prompt": "a detailed sharp natural photograph",
+  "inputs_sha256": {
+    "rubezh_vekov.jpg": "5a13f0a619540df2cd3623a5cb4d5db09e16256dcd255bda5b79aaa9d893562e",
+    "town.jpg": "c11ea51d60b97edca023cbe4861c95698d4f0b9602a5c96069892e490b20bd96"
+  },
+  "protocol": 2,
+  "guidance": 5.0,
+  "negative_prompt": "blurry, low quality, artifacts",
+  "eta": 0
+}

@@ -1,0 +1,14 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "mask": "blocks",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks"
+    ]
+  },
+  "seconds": 20.98872610000035,
+  "sha256": "b94f6546c08c07926b4196681beb2252a754d3641a5e67277252bdb1cc2ec57f"
+}

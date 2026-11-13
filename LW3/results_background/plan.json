@@ -1,0 +1,537 @@
+[
+  {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "mask": "zero",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks",
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks",
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks",
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "mask": "left_half",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "mask": "circle",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "mask": "stripes",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "mask": "blocks",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "zero",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks",
+      "noise",
+      "seeds"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks",
+      "noise",
+      "seeds",
+      "strength"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks",
+      "noise",
+      "seeds",
+      "strength"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "left_half",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "circle",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "stripes",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "blocks",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_5",
+    "mask": "zero",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_5",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_5",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_30",
+    "mask": "zero",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_30",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_30",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "poisson_30",
+    "mask": "zero",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "poisson_30",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "poisson_30",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "poisson_10",
+    "mask": "zero",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "poisson_10",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "poisson_10",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "impulse_0.01",
+    "mask": "zero",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "impulse_0.01",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "impulse_0.01",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "impulse_0.05",
+    "mask": "zero",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "impulse_0.05",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "impulse_0.05",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "blur_noise_jpeg",
+    "mask": "zero",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "blur_noise_jpeg",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "blur_noise_jpeg",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "zero",
+    "seed": 123,
+    "strength": 0.35,
+    "studies": [
+      "seeds"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "one",
+    "seed": 123,
+    "strength": 0.35,
+    "studies": [
+      "seeds"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "mixed",
+    "seed": 123,
+    "strength": 0.35,
+    "studies": [
+      "seeds"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.2,
+    "studies": [
+      "strength"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.2,
+    "studies": [
+      "strength"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "one",
+    "seed": 42,
+    "strength": 0.5,
+    "studies": [
+      "strength"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.5,
+    "studies": [
+      "strength"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "mask": "baseline",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks",
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "baseline",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "masks",
+      "noise",
+      "seeds",
+      "strength"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_5",
+    "mask": "baseline",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_30",
+    "mask": "baseline",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "poisson_30",
+    "mask": "baseline",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "poisson_10",
+    "mask": "baseline",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "impulse_0.01",
+    "mask": "baseline",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "impulse_0.05",
+    "mask": "baseline",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "blur_noise_jpeg",
+    "mask": "baseline",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "mask": "baseline",
+    "seed": 123,
+    "strength": 0.35,
+    "studies": [
+      "seeds"
+    ]
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "python": "3.12.6",
+  "dimensions": {
+    "rubezh_vekov.jpg": {
+      "original": [
+        4000,
+        5328
+      ],
+      "reference": [
+        384,
+        512
+      ]
+    },
+    "town.jpg": {
+      "original": [
+        800,
+        1000
+      ],
+      "reference": [
+        410,
+        512
+      ]
+    }
+  },
+  "packages": {
+    "numpy": "2.5.4",
+    "Pillow": "13.0.0",
+    "torch": "2.7.1+cu118",
+    "diffusers": "0.35.2",
+    "pyiqa": "0.1.15.post2",
+    "setuptools": "80.10.2"
+  },
+  "metrics_device": "cuda",
+  "model_provenance": {
+    "repo": "stable-diffusion-v1-5/stable-diffusion-v1-5",
+    "revision": "451f4fe16113bff5a5d2269ed5ad43b0592e9a14",
+    "files": {
+      "safety_checker/model.safetensors": {
+        "source": "safety_checker/model.fp16.safetensors",
+        "sha256": "08902f19b1cfebd7c989f152fc0507bef6898c706a91d666509383122324b511"
+      },
+      "text_encoder/model.safetensors": {
+        "source": "text_encoder/model.fp16.safetensors",
+        "sha256": "77795e2023adcf39bc29a884661950380bd093cf0750a966d473d1718dc9ef4e"
+      },
+      "unet/diffusion_pytorch_model.safetensors": {
+        "source": "unet/diffusion_pytorch_model.fp16.safetensors",
+        "sha256": "c83908253f9a64d08c25fc90874c9c8aef9a329ce1ca5fb909d73b0c83d1ea21"
+      },
+      "vae/diffusion_pytorch_model.safetensors": {
+        "source": "vae/diffusion_pytorch_model.fp16.safetensors",
+        "sha256": "4fbcf0ebe55a0984f5a5e00d8c4521d52359af7229bb4d81890039d2aa16dd7c"
+      }
+    }
+  },
+  "actual_device": "cuda",
+  "scheduler": "DDIMScheduler",
+  "weight_dtype": "torch.float32",
+  "vae_dtype": "torch.float32",
+  "cuda_runtime": "11.8",
+  "gpu_name": "NVIDIA GeForce GTX 1660 Ti",
+  "cpu": "Intel64 Family 6 Model 165 Stepping 2, GenuineIntel",
+  "memory_strategy": "model_cpu_offload"
+}

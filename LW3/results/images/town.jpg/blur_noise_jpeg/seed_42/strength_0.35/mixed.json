@@ -1,0 +1,14 @@
+{
+  "case": {
+    "image": "town.jpg",
+    "degradation": "blur_noise_jpeg",
+    "mask": "mixed",
+    "seed": 42,
+    "strength": 0.35,
+    "studies": [
+      "noise"
+    ]
+  },
+  "seconds": 37.63614569999845,
+  "sha256": "1d06f4d62edcddc9cd99fa0063553405bac9032f5e4d4acde70570e9acbb1635"
+}

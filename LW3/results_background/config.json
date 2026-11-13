@@ -1,0 +1,17 @@
+{
+  "hr": "LW3\\background_input",
+  "output": "LW3\\results_background",
+  "model": "LW3/.cache/sd15",
+  "max_side": 512,
+  "steps": 30,
+  "strength": 0.35,
+  "seed": 42,
+  "prompt": "a detailed sharp natural photograph",
+  "inputs_sha256": {
+    "background.jpg": "04a5622a8d68b6fcf1a4c86c0d57faa78ece8e799478399d58feb755d1fd540a"
+  },
+  "protocol": 2,
+  "guidance": 5.0,
+  "negative_prompt": "blurry, low quality, artifacts",
+  "eta": 0
+}
