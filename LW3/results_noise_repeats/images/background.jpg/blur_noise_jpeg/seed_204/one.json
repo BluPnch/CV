@@ -1,0 +1,13 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "blur_noise_jpeg",
+    "seed": 204,
+    "mask": "one",
+    "source_directory": "results_background"
+  },
+  "status": "ok",
+  "sha256": "24b16eb304ae5216aa91ac4483cd1832ebf18e32216c6e06a54bbfd1b66e084f",
+  "reused": false,
+  "seconds": 5.97097869999925
+}

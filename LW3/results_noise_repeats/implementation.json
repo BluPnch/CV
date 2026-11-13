@@ -1,0 +1,15 @@
+{
+  "packages": {
+    "numpy": "2.5.4",
+    "Pillow": "13.0.0",
+    "torch": "2.7.1+cu118",
+    "diffusers": "0.35.2",
+    "pyiqa": "0.1.15.post2"
+  },
+  "code_sha256": {
+    "noise_repeats.py": "7c0c5f86dca20a6d2e31e0ab10377279d67e529619b317d3dbe1564cb5d58030",
+    "noise_repeats_report.py": "d42a11835a802919528bf62822e6655dfc123caad070e47f9ec2efc1a273deb9",
+    "experiment.py": "c886c938cbb517ebbed4128d58ea84368c7df9cdbf86337e132cad1851b0e4d6",
+    "sr_inpainting.py": "b8cd02d8c1eede3fe24a7f42f3e9daaf73c67ba7ddfab384ead597a5c3809480"
+  }
+}

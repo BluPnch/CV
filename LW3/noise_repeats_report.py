@@ -202,7 +202,13 @@ def main():
     content = readme.read_text(encoding='utf-8')
     start = content.index('### 3.2.')
     end = content.index('### 3.3. Результаты повторов', start)
-    readme.write_text(content[:start] + section + '\n' + content[end:], encoding='utf-8')
+    content = content[:start] + section + '\n' + content[end:]
+    note = ('В разделе 3.2 исследование шумов дополнительно повторено по пяти seed для каждой '
+            'из трёх фотографий. Итоговые графики этого раздела показывают средние и выборочные SD; '
+            'средние при отклонениях рассчитаны только по успешным результатам с указанием n/5.\n\n')
+    if note not in content:
+        content = content.replace('## 4. Выводы\n\n', '## 4. Выводы\n\n' + note)
+    readme.write_text(content, encoding='utf-8')
     print('Раздел 3.2 обновлён по пяти повторам', flush=True)
 
 

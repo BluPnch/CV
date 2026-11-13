@@ -1,0 +1,13 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "bicubic",
+    "seed": 366,
+    "mask": "baseline",
+    "source_directory": "results_background"
+  },
+  "status": "ok",
+  "sha256": "8288b0a483bb47fa4316a6de7aa51350ab65675e3d74b6218c3b20aa1a4f39f7",
+  "reused": false,
+  "seconds": 0.045228300001326716
+}

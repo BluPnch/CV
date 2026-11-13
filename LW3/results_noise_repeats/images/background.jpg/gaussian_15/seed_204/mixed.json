@@ -1,0 +1,13 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "gaussian_15",
+    "seed": 204,
+    "mask": "mixed",
+    "source_directory": "results_background"
+  },
+  "status": "ok",
+  "sha256": "4aaabd1f19513f25ec083867fbc67e6e402aee763ccb03a4f4f9835f41492119",
+  "reused": false,
+  "seconds": 6.2055737000009685
+}

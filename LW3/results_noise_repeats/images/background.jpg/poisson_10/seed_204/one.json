@@ -1,0 +1,13 @@
+{
+  "case": {
+    "image": "background.jpg",
+    "degradation": "poisson_10",
+    "seed": 204,
+    "mask": "one",
+    "source_directory": "results_background"
+  },
+  "status": "ok",
+  "sha256": "6bee60cfc7b7b2eff1b27c8eb04911e19bb28992bdddbce40d7f8a239e27f920",
+  "reused": false,
+  "seconds": 6.252400500001386
+}

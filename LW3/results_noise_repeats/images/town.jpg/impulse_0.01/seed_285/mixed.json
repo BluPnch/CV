@@ -1,0 +1,13 @@
+{
+  "case": {
+    "image": "town.jpg",
+    "degradation": "impulse_0.01",
+    "seed": 285,
+    "mask": "mixed",
+    "source_directory": "results"
+  },
+  "status": "ok",
+  "sha256": "e8922ee0560c808aaa926555b904e18574fe13c05533fdf9f5b742623e867c3b",
+  "reused": false,
+  "seconds": 8.181787699999404
+}
