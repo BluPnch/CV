@@ -125,6 +125,8 @@ CLIP-IQA безэталонная и не измеряет достоверно�
 
 ![Все восемь вариантов маски, bicubic и Gaussian: background](results_background/masks_photos_background.png)
 
+Для background панель разбита на **четыре ряда по четыре изображения**: первые два ряда — bicubic, следующие два — Gaussian σ=15. В каждой паре рядов сначала идут baseline, zero, one, mixed, затем left_half, circle, stripes, blocks.
+
 Панели можно открыть в полном размере для сравнения деталей. Они построены из сохранённых PNG; повторное построение без запуска модели: `.\LW3\.venv\Scripts\python.exe LW3/mask_comparisons.py`.
 
 

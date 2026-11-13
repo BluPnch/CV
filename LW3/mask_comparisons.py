@@ -22,10 +22,14 @@ def main():
             selected = {(r['degradation'], r['mask']): r for r in rows
                         if r['image'] == photo and int(r['seed']) == 42
                         and float(r['strength']) == .35}
-            fig, axes = plt.subplots(2, 8, figsize=(24, 10), layout='constrained')
+            columns = 4 if photo == 'background.jpg' else 8
+            rows_per_condition = len(labels) // columns
+            fig, axes = plt.subplots(2 * rows_per_condition, columns,
+                                     figsize=(16, 12) if columns == 4 else (24, 10),
+                                     layout='constrained')
             for row_index, (noise, title) in enumerate(conditions):
                 for column, label in enumerate(labels):
-                    ax = axes[row_index, column]
+                    ax = axes[row_index * rows_per_condition + column // columns, column % columns]
                     record = selected[noise, label]
                     if record['status'] == 'ok':
                         with Image.open(output / record['result']) as image:
@@ -38,7 +42,7 @@ def main():
                     ax.set_yticks([])
                     for spine in ax.spines.values():
                         spine.set_visible(False)
-                    if column == 0:
+                    if column % columns == 0:
                         ax.set_ylabel(title, fontsize=14)
             fig.suptitle(f'{photo}: восемь вариантов × две деградации\n'
                          'seed=42, strength=0.35', fontsize=19)
