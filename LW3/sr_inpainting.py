@@ -70,11 +70,12 @@ class MaskedDiffusion:
         padded_mask = np.pad(mask, pad, mode='edge')
         with torch.inference_mode():
             tensor = p.image_processor.preprocess(Image.fromarray(pixels)).to(self.device, p.vae.dtype)
-            # Латент испорченного входа
+            # Латент 
             original = p.vae.encode(tensor).latent_dist.mode() * p.vae.config.scaling_factor
             original = original.to(getattr(p.unet, 'dtype', original.dtype))
             if not torch.isfinite(original).all():
                 raise FloatingPointError('Non-finite VAE encoding')
+            
             roi = torch.tensor(padded_mask.copy(), device=self.device, dtype=original.dtype)[None, None]
             roi = F.interpolate(roi, size=original.shape[-2:], mode='nearest')
             
@@ -88,18 +89,22 @@ class MaskedDiffusion:
             embeddings = torch.cat([negative, positive])
             for index, timestep in enumerate(timesteps):
                 model_input = p.scheduler.scale_model_input(torch.cat([latents] * 2), timestep)
+                
                 unconditional, conditional = p.unet(model_input, timestep, encoder_hidden_states=embeddings).sample.chunk(2)
                 if not torch.isfinite(conditional).all() or not torch.isfinite(unconditional).all():
                     raise FloatingPointError('Non-finite U-Net prediction')
                 prediction = unconditional + guidance * (conditional - unconditional)
+               
                 proposal = p.scheduler.step(prediction, timestep, latents, eta=0).prev_sample
                 reference = (p.scheduler.add_noise(original, noise, timesteps[index + 1:index + 2])
                              if index + 1 < len(timesteps) else original)
+                
                 latents = blend_latents(proposal, reference, roi)
+
             decoded = p.vae.decode((latents / p.vae.config.scaling_factor).to(p.vae.dtype), return_dict=False)[0]
             if not torch.isfinite(decoded).all():
                 raise FloatingPointError('Non-finite VAE decoding')
-            # Сохраняем штатную проверку безопасности в изменённом процессе восстановления.
+            # Сохраняем проверку безопасности в изменённом процессе восстановления.
             decoded, flags = p.run_safety_checker(decoded, self.device, embeddings.dtype)
             generated = p.image_processor.postprocess(decoded, output_type='pil')[0].crop((0, 0, w, h))
             if getattr(self, 'offload', False):
