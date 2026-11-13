@@ -72,6 +72,10 @@ def plot_each_noise(root):
 
 def main():
     root = Path(__file__).resolve().parent
+    if (root / 'results_noise_repeats/summary.csv').exists():
+        from noise_repeats_report import main as repeated_report
+        repeated_report()
+        return
     plot_each_noise(root)
     for directory in ('results', 'results_background'):
         output = root / directory

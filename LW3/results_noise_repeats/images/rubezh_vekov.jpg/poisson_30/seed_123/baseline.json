@@ -1,0 +1,13 @@
+{
+  "case": {
+    "image": "rubezh_vekov.jpg",
+    "degradation": "poisson_30",
+    "seed": 123,
+    "mask": "baseline",
+    "source_directory": "results"
+  },
+  "status": "ok",
+  "sha256": "53764ec43a4db8f3dcae8e419b51426b7fef6f819eb40de9e50cf87fd80cfd95",
+  "reused": false,
+  "seconds": 0.024596999999630498
+}
