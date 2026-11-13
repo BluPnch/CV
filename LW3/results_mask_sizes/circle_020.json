@@ -1,0 +1,12 @@
+{
+  "case": {
+    "id": "circle_020",
+    "shape": "circle",
+    "scale": 0.2,
+    "dimensions": "d=58",
+    "mask_fraction": 0.017930772569444444
+  },
+  "status": "ok",
+  "sha256": "4f38bc90da2c9b9843278674eef8971590878e9e7bc9fa204afad234e7b8bbbe",
+  "seconds": 51.395860199998424
+}

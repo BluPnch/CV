@@ -1,0 +1,12 @@
+{
+  "case": {
+    "id": "rectangle_080",
+    "shape": "rectangle",
+    "scale": 0.8,
+    "dimensions": "410×230",
+    "mask_fraction": 0.6395128038194444
+  },
+  "status": "ok",
+  "sha256": "d74ee198089848006cc09fa2bb4502757195abf00f441d4d888caa5b224ec764",
+  "seconds": 47.915273399998114
+}
