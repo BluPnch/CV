@@ -77,8 +77,10 @@ class MaskedDiffusion:
                 raise FloatingPointError('Non-finite VAE encoding')
             roi = torch.tensor(padded_mask.copy(), device=self.device, dtype=original.dtype)[None, None]
             roi = F.interpolate(roi, size=original.shape[-2:], mode='nearest')
+            
             generator = torch.Generator(device=self.device).manual_seed(seed)
             noise = torch.randn(original.shape, generator=generator, device=self.device, dtype=original.dtype)
+            
             p.scheduler.set_timesteps(steps, device=self.device)
             timesteps = p.scheduler.timesteps[steps - int(steps * strength):]
             latents = p.scheduler.add_noise(original, noise, timesteps[:1])

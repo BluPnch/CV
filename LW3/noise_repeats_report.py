@@ -13,6 +13,39 @@ COLORS = ('#475569', '#2563eb', '#d97706')
 TITLES = ('PSNR ↑, dB', 'LPIPS ↓', 'CLIP-IQA ↑')
 
 
+def make_noise_atlas():
+    """Показывает все деградации двух фотографий в порядке оси графика шумов."""
+    from PIL import Image
+    fig, axes = plt.subplots(2, len(NOISES), figsize=(27, 9), layout='constrained')
+    for row, (photo, title) in enumerate((('rubezh_vekov.jpg', 'Рубеж веков'),
+                                        ('town.jpg', 'Town'))):
+        for column, (noise, label) in enumerate(zip(NOISES, LABELS)):
+            path = ROOT / 'results/images' / photo / noise / 'seed_42/input.png'
+            with Image.open(path) as image:
+                axes[row, column].imshow(image)
+            axes[row, column].set_title(label.replace(' + ', '\n+ '), fontsize=12)
+            axes[row, column].set_xticks([])
+            axes[row, column].set_yticks([])
+            if column == 0:
+                axes[row, column].set_ylabel(title, fontsize=17)
+    fig.suptitle('Исследуемые деградации: входы до восстановления, seed=42', fontsize=20)
+    fig.savefig(OUTPUT / 'noise_inputs_two_rows.png', dpi=160)
+    plt.close(fig)
+
+
+ATLAS_TEXT = ('#### Как выглядят исследуемые деградации\n\n'
+              'Верхняя строка — **«Рубеж веков»**, нижняя — **town**. '
+              'В каждой строке все девять входов расположены слева направо в том же порядке, '
+              'что на графике `results/noise.png`: **bicubic → Gaussian σ=5 → σ=15 → σ=30 '
+              '→ Poisson peak=30 → peak=10 → salt-and-pepper 1% → 5% → blur+noise+JPEG**. '
+              'Это сохранённые изображения **до восстановления**, пример для seed=42; '
+              'итоговые графики метрик выше усреднены по пяти seed. '
+              'Bicubic — контроль без дополнительного шума.\n\n'
+              '![Все девять деградаций: Рубеж веков сверху, town снизу]'
+              '(results_noise_repeats/noise_inputs_two_rows.png)\n\n'
+              '[Открыть панель в полном размере](results_noise_repeats/noise_inputs_two_rows.png).\n')
+
+
 def main():
     """Обновляет только раздел 3.2, сохраняя остальные исследования."""
     with (OUTPUT / 'summary.csv').open(encoding='utf-8') as handle:
@@ -21,6 +54,7 @@ def main():
         raw = list(csv.DictReader(handle))
     photos = list(dict.fromkeys(r['image'] for r in raw))
     lookup = {(r['image'], r['degradation'], r['mask']): r for r in rows}
+    make_noise_atlas()
 
     def values(photo, variant, key, suffix):
         return np.array([float(lookup[photo, n, variant][key + suffix])
@@ -138,7 +172,8 @@ def main():
             'нулевая маска возвращает baseline без вызова модели. '
             'В bicubic нет случайного входного шума: пять baseline одинаковы, '
             'и их SD=0; случайность сохраняется в восстановлении.\n',
-            '![Средние метрики и разброс по пяти повторам](results_noise_repeats/noise_means.png)\n']
+            '![Средние метрики и разброс по пяти повторам](results_noise_repeats/noise_means.png)\n',
+            ATLAS_TEXT]
     a, b = (lookup['town.jpg', f'gaussian_{s}', 'baseline'] for s in (15, 30))
     text += [f'**Проверка прежнего наблюдения для town.** При Gaussian σ=15 baseline CLIP-IQA '
              f'равна {float(a["clipiqa_mean"]):.4f} ± {float(a["clipiqa_std"]):.4f}, '
